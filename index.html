@@ -15,7 +15,7 @@
     <script src="./assets/js/main.js"></script>
     <script id="langScript" src="./locales/en.js"></script>
 
-    <script src="./assets/js/avaya-ccaas-chat-sdk.js"></script>
+    <script src="./assets/js/avaya-ccaas-chat-sdk.js" defer></script>
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src *;img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *"> -->
 
 
@@ -169,6 +169,37 @@
         }
     </style>
     <script defer src="./assets/js/chat-client.js"></script>
+    <script>
+        const configs = {
+            reconnectionTimeout: 120,
+            idleTimeout: 900,
+            idleShutdownGraceTimeout: 120,
+            logLevel: "DEBUG"
+        }
+        AvayaCCaaSChatSDK.on('INITIALIZED', (userContext) => {
+            console.log(userContext);
+            // Code to run after initialization
+        });
+        let userContext = AvayaCCaaSChatSDK.init({
+            hostURL: "/",
+            integrationId: "762dca3b-8cc7-46f7-b8b5-cbbaa8015e1a",
+            token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE3MzAzNjE1MTgsImV4cCI6MTc2MTg5NzUxOCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbXZjIiwiR2l2ZW5OYW1lIjoiSm9obm55IiwiU3VybmFtZSI6IlJvY2tldCIsIkVtYWlsIjoianJvY2tldEBleGFtcGxlLmNvbSIsIlJvbGUiOlsiTWFuYWdlciIsIlByb2plY3QgQWRtaW5pc3RyYXRvciJdfQ.bkDTQjcigEF5j6XZ6yqFxH4F2CgSn72hCaZBsYP_8hQ",
+            appkey: "6LcBcwqilrlwRsIKQq3qaslK5jYHa8yifbm3hfgwz6GUKEof",
+            sessionParameters: {
+                "model": "ABC-123"
+            },
+        }, configs)
+        // function refreshJWT(details) {
+        //     // Fetch the new JWT token from your backend web application.
+        //     // ...
+        //     AvayaCCaaSChatSDK.setJwtToken(token);
+        // }
+
+        // AvayaCCaaSChatSDK.on('TOKEN_EXPIRY_REMINDER', refreshJWT);
+        // AvayaCCaaSChatSDK.on('TOKEN_EXPIRED', refreshJWT);
+
+
+    </script>
 </head>
 
 <body>
@@ -210,7 +241,7 @@
     <div id="root"></div>
     <!-- Default Values
         show-pre-chat="true"
-        participant-identity-type="participant-name" 
+        participant-identity-type="participant-name"
         Participant-avatar-icon="participant-avatar.svg"
         participants-avatar-bg-colors="#CC0000,#000000,#eeeeee"
         text-color="#fff"
